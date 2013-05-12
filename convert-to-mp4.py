@@ -16,7 +16,7 @@ for (path, dirs, files) in os.walk(start_path):
         if os.path.exists(out_path):
             print "Skipping " + in_path + " (" + out_path + " exists)"
             continue
-        print "Processing " + in_path + " to " + out_path
+        print "Processing " + in_path
         result = subprocess.call(["/usr/local/bin/ffmpeg",
                                   "-loglevel", "error",
                                   "-i", in_path,
@@ -28,3 +28,5 @@ for (path, dirs, files) in os.walk(start_path):
             os.remove(in_path)
         else:
             print "Failed: " + str(result)
+            if os.path.exists(out_path):
+                os.remove(out_path)
